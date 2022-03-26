@@ -1,0 +1,45 @@
+from tkinter import *
+from tkinter import ttk
+from googletrans import Translator, LANGUAGES
+from gtts import gTTS
+
+
+def translate_language():
+    translator = Translator()
+    translated = translator.translate(text=entry_window.get(1.0, END), dest=list_lang.get())
+    two_label.delete(1.0, END)
+    two_label.insert(END, translated.text)
+
+tk_window=Tk()
+tk_window.geometry("600x300")
+tk_window.config(bg="light pink")
+
+# heading
+Label(tk_window, text="LANGUAGE TRANSLATOR", font="arial 20 bold", bg='yellow').pack()
+Label(tk_window, text="Exposys Data Labs", font='arial 20 bold', bg='yellow', width='20').pack(side='bottom')
+
+Label(tk_window, text="input text", font='arial 13 bold', bg='red').place(x=200, y=60)
+entry_window=Text(tk_window, font='arial 12', height=20, wrap=WORD, padx=5, pady=5, width=70)
+entry_window.place(x=30, y=140)
+
+drop_down=StringVar()
+
+
+language = list(LANGUAGES.values())
+
+list_lang = ttk.Combobox(tk_window,  values=language, width=32)
+list_lang.place(x=500, y=60)
+list_lang.set("choose language")
+
+Label(tk_window, text="Output text", font='arial 13 bold', bg='red').place(x=850, y=60)
+two_label=Text(tk_window, font='arial 12', height=20, wrap=WORD, padx=5, pady=5, width=70)
+two_label.place(x=800, y=140)
+translate_b=Button(tk_window, text="Translate !", bg="green", fg="white", font=("Arial",26,"bold"), command=translate_language)
+translate_b.place(x=700, y=600)
+
+
+
+tk_window.mainloop()
+
+
+
